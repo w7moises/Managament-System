@@ -5,6 +5,7 @@ import com.management.app.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,33 +20,35 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> createUser(@RequestBody @Valid StudentDto studentDto){
-        StudentDto savedUser = studentService.createUser(studentDto);
+    public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto studentDto){
+        StudentDto savedUser = studentService.createStudent(studentDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("{id}")
-    public ResponseEntity<StudentDto> getUserById(@PathVariable("id") Long userId){
-        StudentDto user = studentService.getUserById(userId);
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable("id") Long userId){
+        StudentDto user = studentService.getStudentById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getAllUsers(){
-        List<StudentDto> users = studentService.getAllUsers();
+    public ResponseEntity<List<StudentDto>> getAllStudents(){
+        List<StudentDto> users = studentService.getAllStudents();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<StudentDto> updateUser(@PathVariable("id") Long userId,
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable("id") Long userId,
                                                  @RequestBody @Valid StudentDto user){
-        StudentDto updatedUser = studentService.updateUser(user,userId);
+        StudentDto updatedUser = studentService.updateStudent(user,userId);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId){
-        studentService.deleteUser(userId);
+    public ResponseEntity<String> deleteStudent(@PathVariable("id") Long userId){
+        studentService.deleteStudent(userId);
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.management.app.service.impl;
 
 import com.management.app.dto.StudentDto;
 import com.management.app.entity.Student;
+import com.management.app.exception.EmailExistsException;
 import com.management.app.exception.ResourceNotFoundException;
 import com.management.app.repository.StudentRepository;
 import com.management.app.service.StudentService;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,14 +26,19 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDto createUser(StudentDto studentDto) {
+    public StudentDto createStudent(StudentDto studentDto) {
+        Optional<Student> optionalUser = studentRepository.findByEmail(studentDto.getEmail());
+
+        if(optionalUser.isPresent()){
+            throw new EmailExistsException("Email Already Exists for User");
+        }
         Student student = modelMapper.map(studentDto, Student.class);
         Student savedStudent = studentRepository.save(student);
         return modelMapper.map(savedStudent, StudentDto.class);
     }
 
     @Override
-    public StudentDto getUserById(Long userId) {
+    public StudentDto getStudentById(Long userId) {
         Student optionalStudent = studentRepository.findById(userId).orElseThrow(
                 () -> new ResourceNotFoundException("User","id",userId)
         );
@@ -39,14 +46,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentDto> getAllUsers() {
+    public List<StudentDto> getAllStudents() {
         List<Student> students = studentRepository.findAll();
         return students.stream().map(student ->modelMapper.map(student, StudentDto.class)).collect(Collectors.toList());
     }
 
     @Override
-    public StudentDto updateUser(StudentDto user, Long userId) {
-        Student existingStudent = studentRepository.findById(userId).get();
+    public StudentDto updateStudent(StudentDto user, Long userId) {
+        Student existingStudent = studentRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id",userId)
+        );
         existingStudent.setFirstName(user.getFirstName());
         existingStudent.setLastName(user.getLastName());
         existingStudent.setEmail(user.getEmail());
@@ -54,7 +63,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteUser(Long userId) {
-        studentRepository.deleteById(userId);
+    public void deleteStudent(Long userId) {
+        Student optionalStudent = studentRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User","id",userId)
+        );
+        studentRepository.deleteById(optionalStudent.getId());
     }
 }

@@ -5,13 +5,13 @@ import com.management.app.dto.StudentDto;
 import java.util.List;
 
 public interface StudentService {
-    StudentDto createUser(StudentDto user);
+    StudentDto createStudent(StudentDto user);
 
-    StudentDto getUserById(Long userId);
+    StudentDto getStudentById(Long userId);
 
-    List<StudentDto> getAllUsers();
+    List<StudentDto> getAllStudents();
 
-    StudentDto updateUser(StudentDto user, Long userId);
+    StudentDto updateStudent(StudentDto user, Long userId);
 
-    void deleteUser(Long userId);
+    void deleteStudent(Long userId);
 }
