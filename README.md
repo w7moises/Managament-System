@@ -13,8 +13,15 @@
 │   │   │               │   └── WebConfig.java
 │   │   │               ├── controller
 │   │   │               │   └── UserController.java
+│   │   │               ├── dto
+│   │   │               │   └── UserDto.java
 │   │   │               ├── entity
 │   │   │               │   └── User.java
+│   │   │               ├── exception
+│   │   │               │   ├── ErrorDetails.java
+│   │   │               │   ├── EmailExistsException.java
+│   │   │               │   ├── ResourceNotFoundException.java
+│   │   │               │   └── GlobalExceptionHandler.java
 │   │   │               ├── repository
 │   │   │               │   └── UserRepository.java
 │   │   │               ├── service

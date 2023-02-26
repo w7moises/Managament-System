@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class StudentDto {
     private Long id;
     @NotEmpty(message = "First name is required")
     private String firstName;
