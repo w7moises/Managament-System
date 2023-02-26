@@ -1,12 +1,16 @@
 package com.management.app.controller;
 
 import com.management.app.dto.UserDto;
-import com.management.app.entity.User;
+import com.management.app.exception.ErrorDetails;
+import com.management.app.exception.ResourceNotFoundException;
 import com.management.app.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto){
         UserDto savedUser = userService.createUser(userDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -38,7 +42,7 @@ public class UserController {
 
     @PutMapping("{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
-                                           @RequestBody UserDto user){
+                                           @RequestBody @Valid UserDto user){
         UserDto updatedUser = userService.updateUser(user,userId);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
