@@ -4,7 +4,6 @@ import com.management.app.dto.StudentDto;
 import com.management.app.entity.Student;
 import com.management.app.repository.StudentRepository;
 import com.management.app.service.impl.StudentServiceImpl;
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -135,19 +134,19 @@ public class StudentServiceTest {
 
     @DisplayName("Test to delete student by id")
     @Test
-    void testEliminarEmpleado(){
+    void deleteStudent(){
         //given
-        long empleadoId = 1L;
-        given(studentRepository.findById(empleadoId)).willReturn(Optional.of(student));
+        long studentId = 1L;
+        given(studentRepository.findById(studentId)).willReturn(Optional.of(student));
 
-        willDoNothing().given(studentRepository).deleteById(empleadoId);
+        willDoNothing().given(studentRepository).deleteById(studentId);
 
         //when
         when(studentServiceImpl.getStudentById(1L)).thenReturn(studentDto);
-        studentServiceImpl.deleteStudent(empleadoId);
+        studentServiceImpl.deleteStudent(studentId);
 
         //then
-        verify(studentRepository,times(1)).deleteById(empleadoId);
+        verify(studentRepository,times(1)).deleteById(studentId);
     }
 
 }
