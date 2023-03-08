@@ -1,12 +1,12 @@
 package com.management.app.service.impl;
 
 import com.management.app.config.JwtService;
+import com.management.app.dto.UserDto;
 import com.management.app.dto.auth.AuthenticationRequest;
 import com.management.app.dto.auth.AuthenticationResponse;
-import com.management.app.dto.auth.RegisterRequest;
 import com.management.app.entity.Role;
-import com.management.app.entity.Token;
-import com.management.app.entity.TokenType;
+import com.management.app.entity.auth.Token;
+import com.management.app.entity.auth.TokenType;
 import com.management.app.entity.User;
 import com.management.app.repository.UserRepository;
 import com.management.app.repository.TokenRepository;
@@ -25,10 +25,10 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public AuthenticationResponse register(UserDto request) {
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
+        .firstname(request.getFirstName())
+        .lastname(request.getLastName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(Role.ROLE_USER)

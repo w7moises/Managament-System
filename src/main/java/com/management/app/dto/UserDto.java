@@ -13,8 +13,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserDto {
     private Long id;
-    @NotEmpty(message = "name is required")
-    private String name;
+    @NotEmpty(message = "firstname is required")
+    private String firstName;
+    @NotEmpty(message = "lastname is required")
+    private String lastName;
     @NotEmpty(message = "email is required")
     @Email
     private String email;

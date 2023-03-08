@@ -1,5 +1,7 @@
-package com.management.app.entity;
+package com.management.app.entity.auth;
 
+import com.management.app.entity.User;
+import com.management.app.entity.auth.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

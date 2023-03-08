@@ -1,4 +1,4 @@
-package com.management.app.config;
+package com.management.app.config.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

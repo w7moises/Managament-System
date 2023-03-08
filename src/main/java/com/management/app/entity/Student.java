@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "students")
-public class Student {
+public class Student extends Auditable<String>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

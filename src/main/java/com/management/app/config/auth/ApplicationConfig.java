@@ -1,4 +1,4 @@
-package com.management.app.config;
+package com.management.app.config.auth;
 
 import com.management.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package com.management.app.entity;
 
+import com.management.app.entity.auth.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

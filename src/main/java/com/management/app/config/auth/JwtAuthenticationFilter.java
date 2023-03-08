@@ -1,5 +1,6 @@
-package com.management.app.config;
+package com.management.app.config.auth;
 
+import com.management.app.config.JwtService;
 import com.management.app.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,5 +1,7 @@
 package com.management.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.management.app.entity.Auditable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -8,7 +10,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDto {
+@JsonPropertyOrder({"id", "firstName", "lastName", "email"})
+public class StudentDto extends Auditable<String> {
     private Long id;
     @NotEmpty(message = "First name is required")
     private String firstName;
