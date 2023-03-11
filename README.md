@@ -10,12 +10,30 @@
 │   │   │           └── app
 │   │   │               ├── ManagementApplication.java
 │   │   │               ├── config
-│   │   │               │   └── WebConfig.java
+│   │   │               │   └── audit
+│   │   │               │       └── SpringSecurityAuditorAware.java
+│   │   │               │   └── auth
+│   │   │               │       ├── ApplicationConfig.java
+│   │   │               │       ├── JwtAuthenticationFilter.java
+│   │   │               │       └── SecurityConfig.java
+│   │   │               │   ├── JwtService.java
+│   │   │               │   └── LogoutService.java
 │   │   │               ├── controller
-│   │   │               │   └── UserController.java
+│   │   │               │   ├── StudentController.java
+│   │   │               │   └── AuthenticationController.java
 │   │   │               ├── dto
+│   │   │               │   └── auth
+│   │   │               │       ├── AuthenticationRequest.java
+│   │   │               │       └── AuthenticationResponse.java
+│   │   │               │   ├── StudentDto.java
 │   │   │               │   └── UserDto.java
 │   │   │               ├── entity
+│   │   │               │   └── auth
+│   │   │               │       ├── Token.java
+│   │   │               │       └── TokenType.java
+│   │   │               │   ├── Auditable.java
+│   │   │               │   ├── Role.java
+│   │   │               │   ├── Student.java
 │   │   │               │   └── User.java
 │   │   │               ├── exception
 │   │   │               │   ├── ErrorDetails.java
@@ -23,11 +41,14 @@
 │   │   │               │   ├── ResourceNotFoundException.java
 │   │   │               │   └── GlobalExceptionHandler.java
 │   │   │               ├── repository
+│   │   │               │   ├── StudentRepository.java
+│   │   │               │   ├── TokenRepository.java
 │   │   │               │   └── UserRepository.java
-│   │   │               ├── service
-│   │   │               │   └── UserService.java
-│   │   │               └── util
-│   │   │                   └── SecurityUtil.java
+│   │   │               └── service
+│   │   │                   ├── impl
+│   │   │                   │   ├── StudentServiceImpl.java
+│   │   │                   │   └── AuthenticationServiceImpl.java
+│   │   │                   └── StudentService.java
 │   │   └── resources
 │   │       ├── application.properties
 │   │       ├── static

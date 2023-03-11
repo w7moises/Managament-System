@@ -8,6 +8,7 @@ import com.management.app.entity.Role;
 import com.management.app.entity.auth.Token;
 import com.management.app.entity.auth.TokenType;
 import com.management.app.entity.User;
+import com.management.app.exception.EmailExistsException;
 import com.management.app.repository.UserRepository;
 import com.management.app.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,18 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(UserDto request) {
+  public AuthenticationResponse register(UserDto request, Role role) {
     var user = User.builder()
         .firstname(request.getFirstName())
         .lastname(request.getLastName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.ROLE_USER)
+        .role(role)
         .build();
+    var optionalUser = repository.findByEmail(request.getEmail());
+    if(optionalUser.isPresent()){
+      throw new EmailExistsException("Email Already Exists for User");
+    }
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
     saveUserToken(savedUser, jwtToken);

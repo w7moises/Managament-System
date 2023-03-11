@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfig {
 
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
@@ -31,6 +31,8 @@ public class SecurityConfiguration {
         .authorizeHttpRequests()
         .requestMatchers("/auth/**")
         .permitAll()
+            .requestMatchers("/actuator/**")
+            .permitAll()
         .anyRequest()
           .authenticated()
         .and()
